@@ -4,7 +4,7 @@ export interface Block {
     y: number
     type: string
     params: (Block | number | null)[]
-    statements: (Block | number | null)[]
+    statements: Block[][]
     movable: null
     deletable: 1
     emphasized: boolean
