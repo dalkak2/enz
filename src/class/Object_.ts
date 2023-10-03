@@ -1,3 +1,5 @@
+import { Script } from "./Script.ts"
+
 export interface Picture {
     id: string;
     name: string;
@@ -62,7 +64,7 @@ export interface Object_ {
         underLine: boolean;
         strike: boolean;
     };
-    script: string;
+    script: Script;
     sprite: {
         name: string;
         pictures: Picture[];

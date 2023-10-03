@@ -14,6 +14,9 @@ export const parseProject =
     JSON.parse(
         s,
         (key, value) => {
+            if (key == "script") {
+                return JSON.parse(value)
+            }
             if (Array.isArray(value)) {
                 return value.map(
                     x => new ({
