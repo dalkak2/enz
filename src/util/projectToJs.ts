@@ -6,9 +6,10 @@ export const projectToJs =
         project.objects.map(
             object =>
                 object.script.map(
-                    blockGroupToJs
-                )
-        )
+                    x => blockGroupToJs(x)
+                        .join("\n")
+                ).join("\n")
+        ).join("\n")
 
 const blockGroupToJs =
     (blockGroup: Block[]): string[] => {
@@ -32,23 +33,21 @@ const blockToJs =
         if (typeof block == "number")
             return block.toString()
         if (typeof block == "string")
-            return block
+            return `"${block}"`
         if (!block)
             return ""
         if (block.type == "number")
             return block.params[0]!.toString()
-        console.log(block)
+        if (block.type == "text")
+            return `"${block.params[0]}"`
         return cg.call(
             block.type,
             [
                 ...block.params
                     .filter((x): x is Block | number | string => !!x)
                     .map(blockToJs),
-                ...(
-                    block.statements[0]
-                        ? blockGroupToJs(block.statements[0])
-                        : []
-                )
+                ...block.statements
+                    .map(blockGroup => cg.arrow([], blockGroupToJs(blockGroup)))
             ]
         )
     }
