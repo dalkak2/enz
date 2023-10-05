@@ -3,7 +3,7 @@ export interface Block {
     x: number
     y: number
     type: string
-    params: (Block | number | null)[]
+    params: (Block | number | string | null)[]
     statements: Block[][]
     movable: null
     deletable: 1

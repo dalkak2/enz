@@ -28,18 +28,21 @@ const blockGroupToJs =
     }
 
 const blockToJs =
-    (block: Block | number): string => {
+    (block: Block | number | string): string => {
         if (typeof block == "number")
             return block.toString()
+        if (typeof block == "string")
+            return block
         if (!block)
             return ""
         if (block.type == "number")
             return block.params[0]!.toString()
+        console.log(block)
         return cg.call(
             block.type,
             [
                 ...block.params
-                    .filter((x): x is number | Block => !!x)
+                    .filter((x): x is Block | number | string => !!x)
                     .map(blockToJs),
                 ...(
                     block.statements[0]
