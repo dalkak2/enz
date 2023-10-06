@@ -1,7 +1,11 @@
+type Brand<K, T> = K & { __brand: T }
+export type Expression = Brand<string, "Expression">
+export type Statement = Brand<string, "Statement"> | Expression
+
 export const call =
-    (callee: string, args: string[]) =>
-    `${callee}(${args.join(", ")})`
+    (callee: Expression, params: Expression[]) =>
+    `${callee}(${params.join(", ")})` as Expression
 
 export const arrow =
-    (args: string[], statements: string[]) =>
-    `(${args.join(",")}) => {${statements.join("; ")}}`
+    (params: Expression[], statements: Statement[]) =>
+    `(${params.join(",")}) => {${statements.join("; ")}}` as Expression
