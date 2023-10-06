@@ -13,32 +13,32 @@ export const projectToJs =
     (project: Project) =>
         project.objects.map(
             ({script}) =>
-                scriptToJs(script)
+                scriptToExpressions(script).join("\n")
         ).join("\n")
 
-const scriptToJs =
+const scriptToExpressions =
     (script: Script) =>
-    script.map(
-        x => blockGroupToStatements(x)
-            .join("\n")
-    ).join("\n")
+    script  .map(eventHandlerToFunction)
+            .filter((x): x is Expression => !!x)
 
-const blockGroupToStatements =
-    (blockGroup: Block[]): Statement[] => {
-        if (blockGroup[0]?.type?.startsWith("when_")) {
-            const [event, ...rest] = blockGroup
-            return [cg.call(
+const eventHandlerToFunction =
+    ([event, ...rest]: Block[]) => {
+        if (event?.type?.startsWith("when_")) {
+            return cg.call(
                 event.type as Expression,
-                [cg.arrow(
-                    [],
-                    blockGroupToStatements(rest),
-                )]
-            )]
+                [blockGroupToArrow(rest)]
+            )
         }
-        return blockGroup.map(
-            blockToExpression
-        )
     }
+
+const blockGroupToArrow =
+    (blockGroup: Block[]) =>
+        cg.arrow(
+            [],
+            blockGroup.map(
+                blockToExpression
+            )
+        )
 
 const blockToExpression =
     (block: Block | number | string): Expression => {
@@ -64,7 +64,7 @@ const blockToExpression =
                     .filter((x): x is Block | number | string => !!x)
                     .map(blockToExpression),
                 ...block.statements
-                    .map(blockGroup => cg.arrow([], blockGroupToStatements(blockGroup)))
+                    .map(blockGroup => blockGroupToArrow(blockGroup))
             ]
         )
     }
