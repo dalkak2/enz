@@ -12,8 +12,9 @@ import {
 export const projectToJs =
     (project: Project) =>
         project.objects.map(
-            ({script}) =>
-                scriptToExpressions(script).join("\n")
+            ({script, id}) => {
+                return scriptToExpressions(script).join("\n").replaceAll(`$obj$`, id)
+            }
         ).join("\n")
 
 const scriptToExpressions =
