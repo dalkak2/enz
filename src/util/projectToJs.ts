@@ -25,7 +25,7 @@ const eventHandlerToFunction =
     ([event, ...rest]: Block[]) => {
         if (event?.type?.startsWith("when_")) {
             return cg.call(
-                event.type as Expression,
+                "Entry." + event.type as Expression,
                 [blockGroupToArrow(rest)]
             )
         }
@@ -58,13 +58,14 @@ const blockToExpression =
             return `"${block.params[0]}"` as Expression
 
         return cg.call(
-            block.type as Expression,
+            "Entry." + block.type as Expression,
             [
                 ...block.params
                     .filter((x): x is Block | number | string => !!x)
                     .map(blockToExpression),
                 ...block.statements
-                    .map(blockGroup => blockGroupToArrow(blockGroup))
+                    .map(blockGroup => blockGroupToArrow(blockGroup)),
+                `"$obj$"` as Expression
             ]
         )
     }
