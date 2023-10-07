@@ -21,12 +21,21 @@ const scriptToExpressions =
     script  .map(eventHandlerToFunction)
             .filter((x): x is Expression => !!x)
 
+const paramsToExpressions =
+    (params: (string | number | Block | null)[]) =>
+    params
+        .filter((x): x is Block | number | string => !!x)
+        .map(blockToExpression)
+
 const eventHandlerToFunction =
     ([event, ...rest]: Block[]) => {
         if (event?.type?.startsWith("when_")) {
             return cg.call(
                 "Entry." + event.type as Expression,
-                [blockGroupToArrow(rest)]
+                [
+                    ...paramsToExpressions(event.params),
+                    blockGroupToArrow(rest)
+                ]
             )
         }
     }
@@ -60,9 +69,7 @@ const blockToExpression =
         return cg.call(
             "Entry." + block.type as Expression,
             [
-                ...block.params
-                    .filter((x): x is Block | number | string => !!x)
-                    .map(blockToExpression),
+                ...paramsToExpressions(block.params),
                 ...block.statements
                     .map(blockGroup => blockGroupToArrow(blockGroup)),
                 `"$obj$"` as Expression
