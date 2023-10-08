@@ -13,15 +13,17 @@ export const projectToJs =
     (project: Project) =>
         project.objects.map(
             objectToExpressions
-        ).join("\n")
+        ).flat().join("\n")
 
 export const objectToExpressions =
     ({script, id}: Object_) =>
-    scriptToExpressions(script).join("\n").replaceAll(`$obj$`, id)
+        scriptToExpressions(script)
+        .map(expression => expression.replaceAll(`$obj$`, id) as Expression)
 
 export const scriptToExpressions =
     (script: Script) =>
-    script  .map(eventHandlerToFunction)
+        script
+            .map(eventHandlerToFunction)
             .filter((x): x is Expression => !!x)
 
 export const paramsToExpressions =
