@@ -2,33 +2,35 @@ import {
     Project,
     Block,
     Script,
+    Object_,
 } from "../mod.ts"
 import * as cg from "./codegen.ts"
 import {
     Expression,
-    Statement,
 } from "./codegen.ts"
 
 export const projectToJs =
     (project: Project) =>
         project.objects.map(
-            ({script, id}) => {
-                return scriptToExpressions(script).join("\n").replaceAll(`$obj$`, id)
-            }
+            objectToExpressions
         ).join("\n")
 
-const scriptToExpressions =
+export const objectToExpressions =
+    ({script, id}: Object_) =>
+    scriptToExpressions(script).join("\n").replaceAll(`$obj$`, id)
+
+export const scriptToExpressions =
     (script: Script) =>
     script  .map(eventHandlerToFunction)
             .filter((x): x is Expression => !!x)
 
-const paramsToExpressions =
+export const paramsToExpressions =
     (params: (string | number | Block | null)[]) =>
     params
         .filter((x): x is Block | number | string => !!x)
         .map(blockToExpression)
 
-const eventHandlerToFunction =
+export const eventHandlerToFunction =
     ([event, ...rest]: Block[]) => {
         if (event?.type?.startsWith("when_")) {
             return cg.call(
@@ -41,7 +43,7 @@ const eventHandlerToFunction =
         }
     }
 
-const blockGroupToArrow =
+export const blockGroupToArrow =
     (blockGroup: Block[]) =>
         cg.arrow(
             [],
@@ -50,7 +52,7 @@ const blockGroupToArrow =
             )
         )
 
-const blockToExpression =
+export const blockToExpression =
     (block: Block | number | string): Expression => {
         if (typeof block == "number")
             return block.toString() as Expression
