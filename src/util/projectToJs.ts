@@ -9,11 +9,26 @@ import {
     Expression,
 } from "./codegen.ts"
 
+import JSON5 from "https://esm.sh/json5@2.2.3"
+
 export const projectToJs =
     (project: Project) =>
+        cg.call(
+            "init" as Expression,
+            [JSON5.stringify({
+                ...project,
+                objects: project.objects.map(
+                    ({script: _, ...rest}) => rest
+                ),
+            }) as Expression]
+        )
+        + "\n"
+        + 
         project.objects.map(
             objectToExpressions
         ).flat().join("\n")
+    
+        
 
 export const objectToExpressions =
     ({script, id}: Object_) =>
