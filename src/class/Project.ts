@@ -8,11 +8,6 @@ export interface Project {
     functions: Function_[];
     scenes: Scene[];
 }
-export class Project {
-    constructor(obj: Project) {
-        Object.assign(this, obj)
-    }
-}
 
 export interface Variable {
     name: string;
@@ -30,20 +25,10 @@ export interface Variable {
     object: string | null;
     array: { data: string }[];
 }
-export class Variable {
-    constructor(obj: Variable) {
-        Object.assign(this, obj)
-    }
-}
 
 export interface Message {
     name: string;
     id: string;
-}
-export class Message {
-    constructor(obj: Message) {
-        Object.assign(this, obj)
-    }
 }
 
 export interface Function_ {
@@ -51,18 +36,8 @@ export interface Function_ {
     block: string;
     content: string;
 }
-export class Function_ {
-    constructor(obj: Function_) {
-        Object.assign(this, obj)
-    }
-}
 
 export interface Scene {
     name: string;
     id: string;
-}
-export class Scene {
-    constructor(obj: Scene) {
-        Object.assign(this, obj)
-    }
 }

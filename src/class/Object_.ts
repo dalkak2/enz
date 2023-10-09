@@ -21,22 +21,12 @@ export interface Picture extends Picture_ {
 export interface Picture extends Picture_ {
     filename: string;
 }
-export class Picture {
-    constructor(obj: Picture) {
-        Object.assign(this, obj)
-    }
-}
 
 export interface Sound {
     id: string;
     name: string;
     fileurl: string;
     duration: number;
-}
-export class Sound {
-    constructor(obj: Sound) {
-        Object.assign(this, obj)
-    }
 }
 
 export interface Object_ {
@@ -78,9 +68,4 @@ export interface Object_ {
     };
     selectedPictureId: string;
     selectedSoundId: string;
-}
-export class Object_ {
-    constructor(obj: Object_) {
-        Object.assign(this, obj)
-    }
 }

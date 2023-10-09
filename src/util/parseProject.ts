@@ -17,19 +17,6 @@ export const parseProject =
             if (key == "script") {
                 return JSON.parse(value)
             }
-            if (Array.isArray(value)) {
-                return value.map(
-                    x => new ({
-                        pictures: Picture,
-                        sounds: Sound,
-                        objects: Object_,
-                        variables: Variable,
-                        messages: Message,
-                        functions: Function_,
-                        scenes: Scene,
-                    }[key] as any)(x)
-                )
-            }
             return value
         }
     )
