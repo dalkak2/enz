@@ -1,9 +1,8 @@
 import { Script } from "./Script.ts"
 
-export interface Picture {
+interface Picture_ {
     id: string;
     name: string;
-    fileurl: string;
     dimension: {
         width: number;
         height: number;
@@ -14,6 +13,13 @@ export interface Picture {
         type: number;
         default: number;
     };
+    imageType: string
+}
+export interface Picture extends Picture_ {
+    fileurl: string;
+}
+export interface Picture extends Picture_ {
+    filename: string;
 }
 export class Picture {
     constructor(obj: Picture) {
