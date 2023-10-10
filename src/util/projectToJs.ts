@@ -28,7 +28,6 @@ export const projectToJs =
         + "\n\n"
         + project.functions.map(
                 ({id, content}) => {
-                    console.log(content)
                     const expr = scriptToExpressions(content)
                     return `Entry.func_${id} = ${expr}`
                 }
