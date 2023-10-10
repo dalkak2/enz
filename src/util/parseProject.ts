@@ -1,20 +1,14 @@
-import {
-    Picture,
-    Sound,
-    Object_,
-    Variable,
-    Message,
-    Function_,
-    Scene,
-    Project
-} from "../mod.ts";
+import { Project } from "../mod.ts";
 
 export const parseProject =
     (s: string): Project =>
     JSON.parse(
         s,
         (key, value) => {
-            if (key == "script") {
+            if (
+                key == "script"
+                || key == "content"
+            ) {
                 return JSON.parse(value)
             }
             return value

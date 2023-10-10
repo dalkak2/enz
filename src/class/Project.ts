@@ -1,4 +1,5 @@
 import { Object_ } from "./Object_.ts"
+import { Script } from "./Script.ts";
 
 export interface Project {
     speed: number;
@@ -34,7 +35,7 @@ export interface Message {
 export interface Function_ {
     id: string;
     block: string;
-    content: string;
+    content: Script;
 }
 
 export interface Scene {

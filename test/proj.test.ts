@@ -13,9 +13,13 @@ const proj2js =
         )
     )
 
-Deno.test("proj1", async () => {
-    assertEquals(
-        await proj2js("proj1"),
-        await Deno.readTextFile(`test/proj1.js`)
-    )
-})
+const projTest = (name: string) => 
+    Deno.test(name, async () => {
+        assertEquals(
+            await proj2js(name),
+            await Deno.readTextFile(`test/${name}.js`)
+        )
+    })
+
+projTest("proj1")
+projTest("proj2")

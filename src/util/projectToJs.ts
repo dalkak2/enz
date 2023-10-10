@@ -20,11 +20,21 @@ export const projectToJs =
                 objects: project.objects.map(
                     ({script: _, ...rest}) => rest
                 ),
+                functions: project.functions.map(
+                    ({content: _, ...rest}) => rest
+                ),
             }) as Expression]
         )
-        + "\n"
-        + 
-        project.objects.map(
+        + "\n\n"
+        + project.functions.map(
+                ({id, content}) => {
+                    console.log(content)
+                    const expr = scriptToExpressions(content)
+                    return `Entry.func_${id} = ${expr}`
+                }
+            ).join("\n")
+        + "\n\n"
+        + project.objects.map(
             objectToExpressions
         ).flat().join("\n")
     
@@ -58,7 +68,42 @@ export const eventHandlerToFunction =
                 ]
             )
         }
+        if (event?.type == "function_create") {
+            return functionToArrow(event)
+        }
     }
+
+export const getFunctionArgs =
+    (param: Block | null | undefined): Expression[] => {
+        if (!param) return []
+
+        const {type, params} = param
+
+        if (type == "function_field_label") {
+            return getFunctionArgs(params[1] as Block)
+        }
+        if (
+            type == "function_field_string"
+            || type == "function_field_boolean"
+        ) {
+            return [
+                (params[0] as Block).type as Expression,
+                ...getFunctionArgs(params[1] as Block),
+            ]
+        }
+        throw "You can't reach here"
+    }
+
+export const functionToArrow =
+    ({params, statements}: Block) => 
+        cg.arrow(
+            getFunctionArgs(params[0] as Block),
+            statements[0].map(
+                blockToExpression
+            )
+        )
+        .replaceAll(`, "$obj$"`, "")
+        .replaceAll(`"$obj$"`, "") as Expression
 
 export const blockGroupToArrow =
     (blockGroup: Block[]) =>
@@ -85,6 +130,12 @@ export const blockToExpression =
 
         if (block.type == "text")
             return `"${block.params[0]}"` as Expression
+
+        if (
+            block.type.startsWith("stringParam_")
+            || block.type.startsWith("booleanParam_")
+        )
+            return block.type as Expression
 
         return cg.call(
             "Entry." + block.type as Expression,
