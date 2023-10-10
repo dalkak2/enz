@@ -8,4 +8,4 @@ export const call =
 
 export const arrow =
     (params: Expression[], statements: Statement[]) =>
-    `(${params.join(",")}) => {${statements.join("; ")}}` as Expression
+    `(${params.join(", ")}) => {${statements.join("; ")}}` as Expression

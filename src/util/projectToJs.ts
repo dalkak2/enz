@@ -96,13 +96,15 @@ export const getFunctionArgs =
 export const functionToArrow =
     ({params, statements}: Block) => 
         cg.arrow(
-            getFunctionArgs(params[0] as Block),
+            [
+                ...getFunctionArgs(params[0] as Block),
+                "obj" as Expression,
+            ],
             statements[0].map(
                 blockToExpression
             )
         )
-        .replaceAll(`, "$obj$"`, "")
-        .replaceAll(`"$obj$"`, "") as Expression
+        .replaceAll(`"$obj$"`, "obj") as Expression
 
 export const blockGroupToArrow =
     (blockGroup: Block[]) =>
