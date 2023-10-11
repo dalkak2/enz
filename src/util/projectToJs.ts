@@ -27,8 +27,13 @@ export const projectToJs =
         )
         + "\n\n"
         + project.functions.map(
-                ({id, content}) => {
-                    const expr = scriptToExpressions(content)
+                ({id, content, localVariables}) => {
+                    const expr = functionToArrow(
+                        content[0][0],
+                        localVariables.map(
+                            ({id}) => `let v_${id}` as Expression
+                        )
+                    )
                     return `Entry.func_${id} = ${expr}`
                 }
             ).join("\n")
@@ -67,9 +72,6 @@ export const eventHandlerToFunction =
                 ]
             )
         }
-        if (event?.type == "function_create") {
-            return functionToArrow(event)
-        }
     }
 
 export const getFunctionArgs =
@@ -94,17 +96,26 @@ export const getFunctionArgs =
     }
 
 export const functionToArrow =
-    ({params, statements}: Block) => 
-        cg.arrow(
+    ({params, statements}: Block, injectBefore: Expression[] = []) => {
+        return cg.arrow(
             [
                 ...getFunctionArgs(params[0] as Block),
                 "obj" as Expression,
             ],
-            statements[0].map(
-                blockToExpression
-            )
+            [
+                ...injectBefore,
+                ...statements[0].map(
+                    blockToExpression
+                ),
+                ...(
+                    params[3]
+                        ? ["return " + blockToExpression(params[3]) as Expression]
+                        : []
+                )
+            ]
         )
         .replaceAll(`"$obj$"`, "obj") as Expression
+    }
 
 export const blockGroupToArrow =
     (blockGroup: Block[]) =>
@@ -137,6 +148,16 @@ export const blockToExpression =
             || block.type.startsWith("booleanParam_")
         )
             return block.type as Expression
+        
+        if (block.type == "set_func_variable")
+            return `v_${
+                block.params[0]
+            } = ${
+                blockToExpression(block.params[1]!)
+            }` as Expression
+        
+        if (block.type == "get_func_variable")
+            return `v_${block.params[0]}` as Expression
 
         return cg.call(
             "Entry." + block.type as Expression,

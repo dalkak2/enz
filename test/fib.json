@@ -1,0 +1,92 @@
+{
+  "objects": [
+    {
+      "id": "ctqk",
+      "name": "새 오브젝트2",
+      "script": "[[{\"id\":\"hxah\",\"x\":29,\"y\":74,\"type\":\"when_run_button_click\",\"params\":[null],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},{\"id\":\"dxel\",\"x\":0,\"y\":0,\"type\":\"dialog\",\"params\":[{\"id\":\"22qv\",\"x\":0,\"y\":0,\"type\":\"func_zlc2\",\"params\":[{\"id\":\"89jb\",\"x\":0,\"y\":0,\"type\":\"text\",\"params\":[10],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},\"speak\",null],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}]]",
+      "objectType": "sprite",
+      "rotateMethod": "free",
+      "scene": "7dwq",
+      "sprite": {
+        "pictures": [
+          {
+            "id": "nrzz",
+            "dimension": {
+              "width": 960,
+              "height": 540,
+              "scaleX": 0.5,
+              "scaleY": 0.5
+            },
+            "fileurl": "/lib/entry-js/images/_1x1.png",
+            "name": "새그림",
+            "imageType": "png"
+          }
+        ],
+        "sounds": []
+      },
+      "selectedPictureId": "nrzz",
+      "lock": false,
+      "entity": {
+        "x": 0,
+        "y": 0,
+        "regX": 480,
+        "regY": 270,
+        "scaleX": 0.5,
+        "scaleY": 0.5,
+        "rotation": 0,
+        "direction": 90,
+        "width": 960,
+        "height": 540,
+        "font": "undefinedpx ",
+        "visible": true
+      }
+    }
+  ],
+  "scenes": [{ "id": "7dwq", "name": "장면 1" }],
+  "variables": [
+    {
+      "name": "초시계",
+      "id": "brih",
+      "visible": false,
+      "value": 0,
+      "variableType": "timer",
+      "isCloud": false,
+      "isRealTime": false,
+      "cloudDate": false,
+      "object": null,
+      "x": 134,
+      "y": -70
+    },
+    {
+      "name": " 대답 ",
+      "id": "1vu8",
+      "visible": false,
+      "value": "0",
+      "variableType": "answer",
+      "isCloud": false,
+      "isRealTime": false,
+      "cloudDate": false,
+      "object": null,
+      "x": 150,
+      "y": -100
+    }
+  ],
+  "messages": [],
+  "functions": [
+    {
+      "id": "zlc2",
+      "type": "value",
+      "localVariables": [{ "name": "지역변수", "value": 0, "id": "zlc2_wmnl" }],
+      "useLocalVariables": true,
+      "content": "[[{\"id\":\"2yt2\",\"x\":50,\"y\":30,\"type\":\"function_create_value\",\"params\":[{\"id\":\"45lo\",\"x\":0,\"y\":0,\"type\":\"function_field_label\",\"params\":[\"fib\",{\"id\":\"2wjt\",\"x\":0,\"y\":0,\"type\":\"function_field_string\",\"params\":[{\"id\":\"ec1c\",\"x\":0,\"y\":0,\"type\":\"stringParam_08l7\",\"params\":[null],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},null],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":false,\"assemble\":false,\"extensions\":[]}],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":false,\"assemble\":true,\"extensions\":[]},null,null,{\"id\":\"alsf\",\"x\":0,\"y\":0,\"type\":\"get_func_variable\",\"params\":[\"zlc2_wmnl\",null],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}],\"statements\":[[{\"id\":\"0bj0\",\"x\":0,\"y\":0,\"type\":\"if_else\",\"params\":[{\"id\":\"68n0\",\"x\":0,\"y\":0,\"type\":\"boolean_basic_operator\",\"params\":[{\"id\":\"mgwf\",\"x\":0,\"y\":0,\"type\":\"stringParam_08l7\",\"params\":[],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},\"LESS_OR_EQUAL\",{\"id\":\"tldf\",\"x\":0,\"y\":0,\"type\":\"text\",\"params\":[\"2\"],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},null,null],\"statements\":[[{\"id\":\"u8q3\",\"x\":0,\"y\":0,\"type\":\"set_func_variable\",\"params\":[\"zlc2_wmnl\",{\"id\":\"eq9l\",\"x\":0,\"y\":0,\"type\":\"text\",\"params\":[\"1\"],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},null],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}],[{\"id\":\"wg6u\",\"x\":0,\"y\":0,\"type\":\"set_func_variable\",\"params\":[\"zlc2_wmnl\",{\"id\":\"fkgl\",\"x\":0,\"y\":0,\"type\":\"calc_basic\",\"params\":[{\"id\":\"n61a\",\"x\":0,\"y\":0,\"type\":\"func_zlc2\",\"params\":[{\"id\":\"rdka\",\"x\":0,\"y\":0,\"type\":\"calc_basic\",\"params\":[{\"id\":\"emxy\",\"x\":0,\"y\":0,\"type\":\"stringParam_08l7\",\"params\":[null],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},\"MINUS\",{\"id\":\"2flu\",\"x\":0,\"y\":0,\"type\":\"number\",\"params\":[\"1\"],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},\"PLUS\",{\"id\":\"czxx\",\"x\":0,\"y\":0,\"type\":\"func_zlc2\",\"params\":[{\"id\":\"geww\",\"x\":0,\"y\":0,\"type\":\"calc_basic\",\"params\":[{\"id\":\"8uqz\",\"x\":0,\"y\":0,\"type\":\"stringParam_08l7\",\"params\":[null],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},\"MINUS\",{\"id\":\"d59y\",\"x\":0,\"y\":0,\"type\":\"number\",\"params\":[\"2\"],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]},null],\"statements\":[],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}]],\"movable\":null,\"deletable\":1,\"emphasized\":false,\"readOnly\":null,\"copyable\":true,\"assemble\":true,\"extensions\":[]}]],\"movable\":null,\"deletable\":false,\"emphasized\":false,\"readOnly\":null,\"copyable\":false,\"assemble\":true,\"extensions\":[]}]]"
+    }
+  ],
+  "tables": [],
+  "speed": 60,
+  "interface": { "menuWidth": 280, "canvasWidth": 480, "object": "ctqk" },
+  "expansionBlocks": [],
+  "aiUtilizeBlocks": [],
+  "hardwareLiteBlocks": [],
+  "externalModules": [],
+  "externalModulesLite": []
+}

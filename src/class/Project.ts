@@ -34,7 +34,13 @@ export interface Message {
 
 export interface Function_ {
     id: string;
-    block: string;
+    type: "normal" | "value"
+    localVariables: {
+        name: string
+        value: number
+        id: string
+    }[]
+    useLocalVariables: boolean
     content: Script;
 }
 
