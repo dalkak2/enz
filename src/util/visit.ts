@@ -166,6 +166,9 @@ export class Visitor {
         if (block.type == "get_func_variable")
             return `v_${block.params[0]}` as Expression
 
+        return this.normalBlockToExpression(block)
+    }
+    normalBlockToExpression(block: Block) {
         return cg.call(
             "Entry." + block.type as Expression,
             [
