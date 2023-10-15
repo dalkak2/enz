@@ -1,13 +1,13 @@
 import {
     parseProject,
-    projectToJs,
+    Visitor,
 } from "../mod.ts"
 
 import { assertEquals } from "https://deno.land/std@0.203.0/assert/mod.ts"
 
 const proj2js =
     async (name: string) =>
-    projectToJs(
+    (new Visitor).visitProject(
         parseProject(
             await Deno.readTextFile(`test/${name}.json`)
         )

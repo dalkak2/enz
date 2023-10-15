@@ -1,5 +1,4 @@
 import {
-    Project,
     Block,
     Script,
     Object_,
@@ -8,41 +7,6 @@ import * as cg from "./codegen.ts"
 import {
     Expression,
 } from "./codegen.ts"
-
-import JSON5 from "https://esm.sh/json5@2.2.3"
-
-export const projectToJs =
-    (project: Project) =>
-        cg.call(
-            "init" as Expression,
-            [JSON5.stringify({
-                ...project,
-                objects: project.objects.map(
-                    ({script: _, ...rest}) => rest
-                ),
-                functions: project.functions.map(
-                    ({content: _, ...rest}) => rest
-                ),
-            }) as Expression]
-        )
-        + "\n\n"
-        + project.functions.map(
-                ({id, content, localVariables}) => {
-                    const expr = functionToArrow(
-                        content[0][0],
-                        localVariables.map(
-                            ({id}) => `let v_${id}` as Expression
-                        )
-                    )
-                    return `Entry.func_${id} = ${expr}`
-                }
-            ).join("\n")
-        + "\n\n"
-        + project.objects.map(
-            objectToExpressions
-        ).flat().join("\n")
-    
-        
 
 export const objectToExpressions =
     ({script, id}: Object_) =>
