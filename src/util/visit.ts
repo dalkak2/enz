@@ -9,7 +9,6 @@ import * as cg from "./codegen.ts"
 import {
     Expression,
 } from "./codegen.ts"
-import { parseProject } from "./parseProject.ts"
 
 import JSON5 from "https://esm.sh/json5@2.2.3"
 
@@ -38,9 +37,11 @@ export class Visitor {
             ).join("\n"),
         ].join("\n")
     }
+
     visitObject(object: Object_) {
         return this.objectToExpressions(object).join("\n")
     }
+
     visitFunction({id, content, localVariables}: Function_) {
         const expr = this.functionToArrow(
             content[0][0],
@@ -50,20 +51,24 @@ export class Visitor {
         )
         return `Entry.func_${id} = ${expr}`
     }
+
     objectToExpressions({script, id}: Object_) {
         return this.scriptToExpressions(script)
             .map(expr => expr.replaceAll("$obj$", id) as Expression)
     }
+
     scriptToExpressions(script: Script) {
         return script
             .map(this.eventHandlerToFunction.bind(this))
             .filter((x): x is Expression => !!x)
     }
+
     paramsToExpressions(params: (string | number | Block | null)[]) {
         return params
             .filter((x): x is Block | number | string => !!x)
             .map(this.blockToExpression.bind(this))
     }
+
     eventHandlerToFunction([event, ...rest]: Block[]) {
         if (event?.type?.startsWith("when_")) {
             return cg.call(
@@ -75,6 +80,7 @@ export class Visitor {
             )
         }
     }
+
     getFunctionArgs(param: Block | null | undefined): Expression[] {
         if (!param) return []
 
@@ -94,8 +100,10 @@ export class Visitor {
         }
         throw "You can't reach here"
     }
+
     functionToArrow(
-        {params, statements}: Block, injectBefore: Expression[] = []
+        {params, statements}: Block,
+        injectBefore: Expression[] = [],
     ) {
         return cg.arrow(
             [
@@ -116,6 +124,7 @@ export class Visitor {
         )
         .replaceAll(`"$obj$"`, "obj") as Expression
     }
+
     blockGroupToArrow(blockGroup: Block[]) {
         return cg.arrow(
             [],
@@ -124,6 +133,7 @@ export class Visitor {
             )
         )
     }
+
     blockToExpression(block: Block | number | string): Expression {
         if (typeof block == "number")
             return block.toString() as Expression
@@ -167,14 +177,3 @@ export class Visitor {
         )
     }
 }
-
-/*
-const visitor = new Visitor()
-console.log(
-    visitor.visitProject(
-        parseProject(
-            await Deno.readTextFile("test/proj1.json")
-        )
-    )
-)
-*/
