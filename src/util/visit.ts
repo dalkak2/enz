@@ -75,7 +75,8 @@ export class Visitor {
                 "Entry." + event.type as Expression,
                 [
                     ...this.paramsToExpressions(event.params),
-                    this.blockGroupToArrow(rest)
+                    this.blockGroupToArrow(rest),
+                    `"$obj$"` as Expression,
                 ]
             )
         }
@@ -175,7 +176,7 @@ export class Visitor {
                 ...this.paramsToExpressions(block.params),
                 ...block.statements
                     .map(blockGroup => this.blockGroupToArrow.bind(this)(blockGroup)),
-                `"$obj$"` as Expression
+                `"$obj$"` as Expression,
             ]
         )
     }

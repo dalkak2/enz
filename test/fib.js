@@ -2,4 +2,4 @@ init({objects:[{id:'ctqk',name:'새 오브젝트2',objectType:'sprite',rotateMet
 
 Entry.func_zlc2 = (stringParam_08l7, obj) => {let v_zlc2_wmnl; Entry.if_else(Entry.boolean_basic_operator(stringParam_08l7, "LESS_OR_EQUAL", "2", obj), () => {v_zlc2_wmnl = "1"}, () => {v_zlc2_wmnl = Entry.calc_basic(Entry.func_zlc2(Entry.calc_basic(stringParam_08l7, "MINUS", 1, obj), obj), "PLUS", Entry.func_zlc2(Entry.calc_basic(stringParam_08l7, "MINUS", 2, obj), obj), obj)}, obj); return v_zlc2_wmnl}
 
-Entry.when_run_button_click(() => {Entry.dialog(Entry.func_zlc2("10", "ctqk"), "speak", "ctqk")})
+Entry.when_run_button_click(() => {Entry.dialog(Entry.func_zlc2("10", "ctqk"), "speak", "ctqk")}, "ctqk")

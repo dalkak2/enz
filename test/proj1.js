@@ -2,5 +2,5 @@ init({objects:[{id:'7y0y',name:'엔트리봇',objectType:'sprite',rotateMethod:'
 
 
 
-Entry.when_run_button_click(() => {Entry.if_else(Entry.boolean_basic_operator(Entry.calc_basic(10, "PLUS", 10, "7y0y"), "LESS", "2", "7y0y"), () => {Entry.dialog("안녕!", "speak", "7y0y"); Entry.change_to_some_shape(Entry.get_pictures("4t48", "7y0y"), "7y0y")}, () => {Entry.move_x(10, "7y0y")}, "7y0y")})
-Entry.when_some_key_pressed("81", () => {Entry.locate_object_time(2, "mouse", "7y0y")})
+Entry.when_run_button_click(() => {Entry.if_else(Entry.boolean_basic_operator(Entry.calc_basic(10, "PLUS", 10, "7y0y"), "LESS", "2", "7y0y"), () => {Entry.dialog("안녕!", "speak", "7y0y"); Entry.change_to_some_shape(Entry.get_pictures("4t48", "7y0y"), "7y0y")}, () => {Entry.move_x(10, "7y0y")}, "7y0y")}, "7y0y")
+Entry.when_some_key_pressed("81", () => {Entry.locate_object_time(2, "mouse", "7y0y")}, "7y0y")
