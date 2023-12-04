@@ -65,7 +65,7 @@ export class Visitor {
 
     paramsToExpressions(params: (string | number | Block | null)[]) {
         return params
-            .filter((x): x is Block | number | string => !!x)
+            .filter((x): x is Block | number | string => x == 0 || !!x)
             .map(this.blockToExpression.bind(this))
     }
 
