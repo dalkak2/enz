@@ -6,11 +6,15 @@ import {
     Function_,
 } from "../mod.ts"
 import * as cg from "./codegen.ts"
-import {
+import type {
     Expression,
 } from "./codegen.ts"
 
 import JSON5 from "https://esm.sh/json5@2.2.3"
+
+const stringExpr =
+    (str: string) => 
+    `"` + str.replaceAll(`"`, `\\"`) + `"` as Expression
 
 export class Visitor {
     visitProject(project: Project) {
@@ -76,7 +80,7 @@ export class Visitor {
                 [
                     ...this.paramsToExpressions(event.params),
                     this.blockGroupToArrow(rest),
-                    `"$obj$"` as Expression,
+                    stringExpr("$obj$"),
                 ]
             )
         }
@@ -140,7 +144,7 @@ export class Visitor {
             return block.toString() as Expression
 
         if (typeof block == "string")
-            return `"${block}"` as Expression
+            return stringExpr(block)
         
         if (!block)
             return "" as Expression
@@ -148,8 +152,9 @@ export class Visitor {
         if (block.type == "number")
             return block.params[0]!.toString() as Expression
 
-        if (block.type == "text")
-            return `"${block.params[0]}"` as Expression
+        if (block.type == "text") {
+            return stringExpr(String(block.params[0] as string | number))
+        }
 
         if (
             block.type.startsWith("stringParam_")
@@ -176,7 +181,7 @@ export class Visitor {
                 ...this.paramsToExpressions(block.params),
                 ...block.statements
                     .map(blockGroup => this.blockGroupToArrow.bind(this)(blockGroup)),
-                `"$obj$"` as Expression,
+                stringExpr("$obj$"),
             ]
         )
     }
