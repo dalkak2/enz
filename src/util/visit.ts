@@ -21,15 +21,7 @@ export class Visitor {
         return [
             cg.call(
                 "init" as Expression,
-                [JSON5.stringify({
-                    ...project,
-                    objects: project.objects.map(
-                        ({script: _, ...rest}) => rest
-                    ),
-                    functions: project.functions.map(
-                        ({content: _, ...rest}) => rest
-                    ),
-                }) as Expression]
+                [JSON5.stringify(this.getInitData(project)) as Expression]
             ),
             "",
             project.functions.map(
@@ -40,6 +32,18 @@ export class Visitor {
                 this.visitObject.bind(this)
             ).join("\n"),
         ].join("\n")
+    }
+
+    getInitData(project: Project) {
+        return {
+            ...project,
+            objects: project.objects.map(
+                ({script: _, ...rest}) => rest
+            ),
+            functions: project.functions.map(
+                ({content: _, ...rest}) => rest
+            ),
+        }
     }
 
     visitObject(object: Object_) {
