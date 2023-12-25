@@ -1,6 +1,6 @@
 import { Script } from "./Script.ts"
 
-interface Picture_ {
+export interface Picture {
     id: string;
     name: string;
     dimension: {
@@ -14,19 +14,19 @@ interface Picture_ {
         default: number;
     };
     imageType: string
-}
-export interface Picture extends Picture_ {
-    fileurl: string;
-}
-export interface Picture extends Picture_ {
-    filename: string;
+
+    fileurl?: string;
+    filename?: string;
 }
 
 export interface Sound {
     id: string;
     name: string;
-    fileurl: string;
     duration: number;
+
+    fileurl?: string;
+    filename?: string;
+    ext?: string;
 }
 
 export interface Object_ {
