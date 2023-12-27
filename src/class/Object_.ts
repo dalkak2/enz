@@ -13,7 +13,7 @@ export interface Picture {
         type: number;
         default: number;
     };
-    imageType: string
+    imageType?: string
 
     fileurl?: string;
     filename?: string;
