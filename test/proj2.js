@@ -2,4 +2,4 @@ init({objects:[{id:'7y0y',name:'엔트리봇',objectType:'sprite',rotateMethod:'
 
 Entry.func_j0wh = (stringParam_66j8, obj) => {Entry.dialog(stringParam_66j8, "speak", obj)}
 
-Entry.when_run_button_click(() => {Entry.func_j0wh("123", "7y0y")}, "7y0y")
+Entry.when_run_button_click(() => {Entry.func_j0wh(123, "7y0y")}, "7y0y")

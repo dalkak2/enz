@@ -146,6 +146,9 @@ export class Visitor {
     blockToExpression(block: Block | number | string): Expression {
         if (typeof block == "number")
             return block.toString() as Expression
+    
+        if (!Number.isNaN(Number(block)))
+            return Number(block).toString() as Expression
 
         if (typeof block == "string")
             return stringExpr(block)
@@ -153,12 +156,8 @@ export class Visitor {
         if (!block)
             return "" as Expression
 
-        if (block.type == "number")
-            return block.params[0]!.toString() as Expression
-
-        if (block.type == "text") {
-            return stringExpr(String(block.params[0] as string | number))
-        }
+        if (block.type == "number" || block.type == "text")
+            return this.blockToExpression(block.params[0]!)
 
         if (
             block.type.startsWith("stringParam_")
