@@ -121,9 +121,9 @@ export class Visitor {
             ],
             [
                 ...injectBefore,
-                ...statements[0].map(
+                ...statements?.[0]?.map(
                     this.blockToExpression.bind(this)
-                ),
+                ) || [],
                 ...(
                     params[3]
                         ? ["return " + this.blockToExpression(params[3]) as Expression]
@@ -182,8 +182,8 @@ export class Visitor {
             "Entry." + block.type as Expression,
             [
                 ...this.paramsToExpressions(block.params),
-                ...block.statements
-                    .map(blockGroup => this.blockGroupToArrow.bind(this)(blockGroup)),
+                ...(block.statements || [])
+                    .map(blockGroup => this.blockGroupToArrow.bind(this)(blockGroup || [])),
                 stringExpr("$obj$"),
             ]
         )
