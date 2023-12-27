@@ -35,7 +35,7 @@ export interface Message {
 export interface Function_ {
     id: string;
     type: "normal" | "value"
-    localVariables: {
+    localVariables?: {
         name: string
         value: number
         id: string

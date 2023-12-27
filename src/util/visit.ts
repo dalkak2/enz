@@ -53,7 +53,7 @@ export class Visitor {
     visitFunction({id, content, localVariables}: Function_) {
         const expr = this.functionToArrow(
             content[0][0],
-            localVariables.map(
+            localVariables?.map(
                 ({id}) => `let v_${id}` as Expression
             )
         )
