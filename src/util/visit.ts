@@ -12,9 +12,17 @@ import type {
 
 import JSON5 from "https://esm.sh/json5@2.2.3"
 
-const stringExpr =
+export const stringExpr =
     (str: string) => 
     `"` + str.replaceAll(`"`, `\\"`) + `"` as Expression
+
+export const idCheck =
+    (id: string) => {
+        if (/[^a-zA-Z0-9_]/.test(id)) {
+            throw new Error(`ID '${id}' is not safe!`)
+        }
+        return id
+    }
 
 export class Visitor {
     visitProject(project: Project) {
@@ -54,15 +62,15 @@ export class Visitor {
         const expr = this.functionToArrow(
             content[0][0],
             localVariables?.map(
-                ({id}) => `let v_${id}` as Expression
+                ({id}) => `let v_${idCheck(id)}` as Expression
             )
         )
-        return `Entry.func_${id} = ${expr}`
+        return `Entry.func_${idCheck(id)} = ${expr}`
     }
 
     objectToExpressions({script, id}: Object_) {
         return this.scriptToExpressions(script)
-            .map(expr => expr.replaceAll("$obj$", id) as Expression)
+            .map(expr => expr.replaceAll("$obj$", idCheck(id)) as Expression)
     }
 
     scriptToExpressions(script: Script) {
