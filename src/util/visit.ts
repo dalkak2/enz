@@ -78,7 +78,13 @@ export class Visitor {
     }
 
     eventHandlerToFunction([event, ...rest]: Block[]) {
-        if (event?.type?.startsWith("when_")) {
+        if (
+            event?.type?.startsWith("when_")
+            || [
+                "mouse_clicked",
+                "mouse_click_cancled",
+            ].includes(event?.type)
+        ) {
             return cg.call(
                 "Entry." + event.type as Expression,
                 [
