@@ -16,8 +16,10 @@ const proj2js =
 const projTest = (name: string) => 
     Deno.test(name, async () => {
         assertEquals(
-            await proj2js(name),
-            await Deno.readTextFile(`test/${name}.js`)
+            (await proj2js(name))
+                .replaceAll("\r\n", "\n"),
+            (await Deno.readTextFile(`test/${name}.js`))
+                .replaceAll("\r\n", "\n"),
         )
     })
 
