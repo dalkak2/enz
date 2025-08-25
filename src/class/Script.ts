@@ -14,4 +14,20 @@ export interface Block {
     extensions: []
 }
 
-export type Script = Block[][]
+interface Comment {
+    id: string
+    x: number
+    y: number
+    width: number
+    height: number
+    value: string
+    readOnly: boolean
+    visible: boolean
+    display: boolean
+    movable: boolean
+    isOpened: boolean
+    deletable: 1
+    type: "comment"
+}
+
+export type Script = (Block | Comment)[][]

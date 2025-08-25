@@ -59,8 +59,18 @@ export class Visitor {
     }
 
     visitFunction({id, content, localVariables}: Function_) {
+        const funcHead = content.find(([head]) =>
+            head.type == "function_create"
+            || head.type == "function_create_value"
+        )?.[0] as Block | undefined
+            
+
+        if (!funcHead) {
+            throw new Error(`"function_create" or "function_create_value" is not exist in function "${id}"`)
+        }
+
         const expr = this.functionToArrow(
-            content[0][0],
+            funcHead,
             localVariables?.map(
                 ({id}) => `let v_${idCheck(id)}` as Expression
             )
@@ -75,7 +85,9 @@ export class Visitor {
 
     scriptToExpressions(script: Script) {
         return script
-            .map(this.eventHandlerToFunction.bind(this))
+            .map(blocks => this.eventHandlerToFunction(
+                blocks.filter(x => x.type != "comment") as Block[]
+            ))
             .filter((x): x is Expression => !!x)
     }
 
