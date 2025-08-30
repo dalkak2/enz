@@ -26,4 +26,5 @@ const projTest = (name: string) =>
 projTest("proj1")
 projTest("proj2")
 projTest("fib")
+projTest("fib2")
 projTest("memoInFun")

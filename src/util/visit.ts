@@ -59,15 +59,19 @@ export class Visitor {
     }
 
     visitFunction({id, content, localVariables}: Function_) {
-        const funcHead = content.find(([head]) =>
+        const [funcHead, ...rest] = content.find(([head]) =>
             head.type == "function_create"
             || head.type == "function_create_value"
-        )?.[0] as Block | undefined
-            
+        ) as Block[] | undefined || []
 
         if (!funcHead) {
             throw new Error(`"function_create" or "function_create_value" is not exist in function "${id}"`)
         }
+
+        funcHead.statements = [[
+            ...funcHead.statements?.[0] || [],
+            ...rest,
+        ]]
 
         const expr = this.functionToArrow(
             funcHead,
